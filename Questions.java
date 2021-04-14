@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Questions {
     private List<String> questions = new ArrayList<>();
-    private Map<String,Map<String,Boolean>> answers;
+    private Map<String,Map<String,Boolean>> answers = new HashMap<>();
 
     public void fillQuestions(String question, List<String> answers, String right) {
         Map<String,Boolean> rightAnswer = new HashMap<>();
@@ -51,7 +51,7 @@ class QuestionMain {
             questions.fillQuestions(question,answers,right);
             i++;
             System.out.println("Want to put more questions? 1 yes / 0 no");
-            isExit = in.nextByte() == 1;
+            isExit = in.nextByte() == 0;
         }
 
     }
