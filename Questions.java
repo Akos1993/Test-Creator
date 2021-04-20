@@ -2,53 +2,73 @@ package com.akos;
 
 import java.util.*;
 
-public class Questions {
-    private List<String> questions = new ArrayList<>();
-    private Map<String,Map<String,Boolean>> answers = new HashMap<>();
+class Answers {
+    private List<String> answers = new ArrayList<>();
+    private int indexOfCorrect;
 
-    public void fillQuestions(String question, List<String> answers, String right) {
-        Map<String,Boolean> rightAnswer = new HashMap<>();
-        questions.add(question);
-        for (String answer : answers) {
-            if (answer.equals(right)) {
-                rightAnswer.put(answer, true);
-            } else {
-                rightAnswer.put(answer, false);
-            }
-        }
-        this.answers.put(question,rightAnswer);
+    public List<String> getAnswers() {
+        return answers;
     }
 
-}
-class QuestionMain {
+    public int getIndexOfCorrect() {
+        return indexOfCorrect;
+    }
 
-    public static void main(String[] args) {
-        Questions questions = new Questions();
+    public void rightAnswer (String correct) {
+        indexOfCorrect = answers.indexOf(correct);
+    }
+
+    public void addAnswer (String answer) {
+        answers.add(answer);
+    }
+}
+
+public class Questions {
+    private String name;
+    private Map<String, Answers> answers;
+
+    public void fillQuestions(String question, Answers answers, String name) {
+        this.name = name;
+        this.answers.put(question, answers);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Map<String, Answers> getAnswers() {
+        return answers;
+    }
+
+
+    public void questionInput () {
         Scanner in = new Scanner(System.in);
         boolean isExit = false;
         int i = 1;
 
         while (!isExit) {
-            List<String> answers = new ArrayList<>();
-            System.out.println("Provide the "+ i + ". " + "Question");
+            Answers answers = new Answers();
+            System.out.println("Provide the " + i + ". " + "Question");
             String question = in.nextLine();
             in.nextLine();
-            String right ="";
-            int j = 0;
-            while(!isExit) {
-                System.out.println("Provide answer no." + (j+1));
-                answers.add(in.nextLine());
-                in.nextLine();
+            String right = "";
+            int j = 1;
+            System.out.println("Provide name for the test");
+            String name = in.nextLine();
+            while (!isExit) {
+                System.out.println("Provide answer no." + j);
+                answers.addAnswer(in.nextLine());
                 System.out.println("Is this the correct answer? 1 yes / 0 no");
                 if (in.nextByte() == 1) {
-                    right = answers.get(j);
+                    right = answers.getAnswers().get(j-1);
+                    answers.rightAnswer(right);
                 }
                 System.out.println("Want to add more answers? 1 yes / 0 no");
                 isExit = in.nextByte() == 0;
                 in.nextLine();
                 j++;
             }
-            questions.fillQuestions(question,answers,right);
+            fillQuestions(question,answers,name);
             i++;
             System.out.println("Want to put more questions? 1 yes / 0 no");
             isExit = in.nextByte() == 0;
@@ -56,3 +76,6 @@ class QuestionMain {
 
     }
 }
+
+
+
