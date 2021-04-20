@@ -16,14 +16,14 @@ public class Test extends Questions{
         }
         return (double) count / input.size();
     }
-    public void takeTest (Map<String,Map<String,Boolean>> test) {
+    public void takeTest (Map<String, Answers> test) {
         Scanner in = new Scanner(System.in);
-        for (Map.Entry<String,Map<String,Boolean>> map : test.entrySet()) {
+        for (Map.Entry<String, Answers> map : test.entrySet()) {
             System.out.println(map.getKey());
-            System.out.println(map.getValue().keySet());
+            System.out.println(map.getValue().getAnswers());
             System.out.println("Chose your answer");
             String answer = in.nextLine();
-            this.input.put(map.getKey(), map.getValue().get(answer));
+            this.input.put(map.getKey(), map.getValue().isRight(answer));
             in.nextLine();
         }
     }

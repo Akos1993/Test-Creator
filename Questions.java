@@ -21,6 +21,10 @@ class Answers {
     public void addAnswer (String answer) {
         answers.add(answer);
     }
+
+    public boolean isRight (String answer) {
+        return answers.indexOf(answer) == indexOfCorrect;
+    }
 }
 
 public class Questions {
