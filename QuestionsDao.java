@@ -18,12 +18,12 @@ public class QuestionsDao implements Dao<String> {
 
     @Override
     public void save(String questions) {
-        executeInsideTransaction(entityManager -> entityManager.persist(questions);
+        executeInsideTransaction(entityManager -> entityManager.persist(questions));
     }
 
     @Override
     public void update(String questions) {
-        executeInsideTransaction(entityManager -> entityManager.merge(questions);
+        executeInsideTransaction(entityManager -> entityManager.merge(questions));
     }
 
     @Override
@@ -32,7 +32,7 @@ public class QuestionsDao implements Dao<String> {
     }
 
     public void updateID(int testID) {
-
+        executeInsideTransaction(entityManager -> entityManager.merge(testID));
     }
 
     private void executeInsideTransaction(Consumer<EntityManager> action) {
